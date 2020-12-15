@@ -4,10 +4,12 @@ verify_ssl = true
 name = "pypi"
 
 [scripts]
-start = "flask run"
+dev = "flask run"
+start = "flask run --with-threads"
 
 [packages]
 flask = "*"
+python-dotenv = "*"
 
 [dev-packages]
 
