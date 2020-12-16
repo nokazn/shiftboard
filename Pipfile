@@ -10,6 +10,10 @@ start = "flask run --with-threads"
 [packages]
 flask = "*"
 python-dotenv = "*"
+psycopg2 = "*"
+sqlalchemy = "*"
+flask-sqlalchemy = "*"
+python-dateutil = "*"
 
 [dev-packages]
 
