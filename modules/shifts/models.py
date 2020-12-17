@@ -1,4 +1,4 @@
-from db.database import db
+from app import db
 
 class Shift(db.Model):
   __tablename__ = 'shifts'

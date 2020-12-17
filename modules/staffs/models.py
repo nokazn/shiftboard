@@ -1,13 +1,5 @@
-from models.Shift import Shift
-from db.database import db
-
-def serialize_staff(staff):
-  if staff == None:
-    return None
-  return {
-    'staff_id': staff.staff_id,
-    'nickname': staff.nickname,
-  }
+from app import db
+from modules.shifts.models import Shift
 
 class Staff(db.Model):
   __tablename__ = 'staffs'
@@ -16,12 +8,12 @@ class Staff(db.Model):
 
   def get_staffs():
     staffs = Staff.query.order_by(Staff.staff_id).all()
-    staffs = list(map(serialize_staff, staffs))
+    # staffs = list(map(serialize_staff, staffs))
     return staffs
 
   def get_staff(staff_id):
     staff = Staff.query.filter(Staff.staff_id == staff_id).one_or_none()
-    return serialize_staff(staff)
+    return staff
 
   def add_staff(nickname):
     max_id_num = db.session.query(db.func.max(Staff.staff_id)).scalar()
