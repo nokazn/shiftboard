@@ -1,24 +1,28 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import { useEffect, useState } from 'react';
+import { Header } from './components/globals/Header'
+import { StaffTable } from './components/parts/StaffTable';
+import { api } from './api';
+import { Staff } from './types';
 
 function App() {
+  const [staffs, setStaffs] = useState<Staff[] | undefined>();
+  useEffect(() => {
+    const request = async () => {
+      const res =  await api.staffs.getAll()
+        .catch((err: Error) => {
+          console.error(err);
+          return undefined;
+        });
+      // TODO
+      setStaffs(res?.staffs);
+    };
+    request();
+  });
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div>
+      <Header />
+      {staffs && <StaffTable staffs={staffs} />}
     </div>
   );
 }
