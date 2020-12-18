@@ -19,4 +19,6 @@ class SystemConfig:
     + DB_DATABASE
   SQLALCHEMY_TRACK_MODIFICATIONS = False
 
+  CLIENT_URL = os.getenv('CLIENT_URL')
+
 Config = SystemConfig

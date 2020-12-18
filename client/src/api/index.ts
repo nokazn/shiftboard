@@ -1,5 +1,5 @@
-import * as staffs from './staffs'
+import * as staffs from './staffs';
 
 export const api = {
   staffs,
-}
+};

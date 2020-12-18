@@ -1,3 +1,7 @@
+import { checkEnv } from './config';
+
+checkEnv();
+
 module.exports = {
   style: {
     postcss: {
