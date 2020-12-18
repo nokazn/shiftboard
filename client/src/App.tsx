@@ -1,27 +1,21 @@
-import { useEffect, useState } from 'react';
+import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
 import { Header } from './components/globals/Header';
-import { StaffTable } from './components/parts/StaffTable';
-import { api } from './api';
-import { Staff } from './types';
+import { Top } from './pages';
 
-function App() {
-  const [staffs, setStaffs] = useState<Staff[] | undefined>();
-  useEffect(() => {
-    const request = async () => {
-      const res = await api.staffs.getAll().catch((err: Error) => {
-        console.error(err);
-        return undefined;
-      });
-      setStaffs(res?.staffs);
-    };
-    request();
-  }, []);
-
+const App = () => {
   return (
-    <div>
-      <Header />
-      {staffs && <StaffTable staffs={staffs} />}
-    </div>
+    <Router>
+      <div>
+        <Header />
+        <div className="my-4 mx-20 md:mx-16">
+          <Switch>
+            <Route path="/">
+              <Top />
+            </Route>
+          </Switch>
+        </div>
+      </div>
+    </Router>
   );
 }
 

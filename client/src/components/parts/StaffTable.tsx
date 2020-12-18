@@ -1,3 +1,7 @@
+import { classnames } from 'tailwindcss-classnames';
+import { StaffTableTh } from './StaffTableTh';
+import { StaffTableTd } from './StaffTableTd';
+import { Button } from './Button';
 import type { Staff } from '../../types';
 
 type Props = {
@@ -10,31 +14,44 @@ export const StaffTable = (props: Props) => {
   };
 
   return (
-    <table className='table table-bordered'>
-      <thead>
+    <table
+      className={classnames(
+        'table-fixed',
+        'w-full',
+        'border-collapse',
+        'border-gray-700',
+      )}
+    >
+      <thead className={classnames('bg-blue-100')}>
         <tr>
-          <th scope='col' className='w-2/5'>
+          <StaffTableTh w="w-2/5">
             職員ID
-          </th>
-          <th scope='col' className='w-2/5'>
+          </StaffTableTh>
+          <StaffTableTh w="w-2/5">
             ニックネーム
-          </th>
-          <th scope='col' className='w-1/5'>
+          </StaffTableTh>
+          <StaffTableTh w="w-1/5">
             操作
-          </th>
+          </StaffTableTh>
         </tr>
       </thead>
-      <tbody>
+      <tbody className="">
         {props.staffs?.map((staff) => (
-          <tr key={staff.staff_id}>
-            <td>{staff.staff_id}</td>
-            <td>{staff.nickname}</td>
-            <td>
-              <button type='button' onClick={() => deleteStaff(staff.staff_id)} className='btn btn-danger'>
+          <tr key={staff.staff_id} className="hover:bg-blue-50">
+            <StaffTableTd>
+              {staff.staff_id}
+            </StaffTableTd>
+            <StaffTableTd>
+              {staff.nickname}
+            </StaffTableTd>
+            <StaffTableTd>
+              <Button
+                color="red"
+                onClick={() => deleteStaff(staff.staff_id)}
+              >
                 削除
-              </button>
-              <input type='hidden' name='staff_id' value='{staff.staff_id}' />
-            </td>
+              </Button>
+            </StaffTableTd>
           </tr>
         )) ?? <div>データが取得できませんでした。</div>}
       </tbody>
