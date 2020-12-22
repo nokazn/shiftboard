@@ -3,9 +3,10 @@ import { StaffTableTh } from './StaffTableTh';
 import { StaffTableTd } from './StaffTableTd';
 import { Button } from './Button';
 import type { Staff } from '../../types';
+import type { Suspender } from '../../api/utils';
 
 type Props = {
-  staffs: Staff[] | undefined;
+  resource: Suspender<Record<'staffs', Staff[] | undefined>>;
 };
 
 export const StaffTable = (props: Props) => {
@@ -36,7 +37,7 @@ export const StaffTable = (props: Props) => {
         </tr>
       </thead>
       <tbody className="">
-        {props.staffs?.map((staff) => (
+        {props.resource.read().staffs?.map((staff) => (
           <tr key={staff.staff_id} className="hover:bg-blue-50">
             <StaffTableTd>
               {staff.staff_id}
@@ -53,7 +54,7 @@ export const StaffTable = (props: Props) => {
               </Button>
             </StaffTableTd>
           </tr>
-        )) ?? <div>データが取得できませんでした。</div>}
+        ))}
       </tbody>
     </table>
   );

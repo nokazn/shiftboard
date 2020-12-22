@@ -29,6 +29,7 @@
     "build": "craco build",
     "test": "craco test",
     "eject": "react-scripts eject",
+    "tsc": "tsc --no-emit",
     "format": "prettier --write src/**/*.{js,jsx,ts,tsx,json}"
   },
   "eslintConfig": {
@@ -51,6 +52,7 @@
   },
   "devDependencies": {
     "@types/classnames": "^2.2.11",
-    "@types/react-router-dom": "^5.1.6"
+    "@types/react-router-dom": "^5.1.6",
+    "dotenv": "^8.2.0"
   }
 }

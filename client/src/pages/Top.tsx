@@ -1,29 +1,21 @@
-import { useEffect, useState } from 'react';
+import { useState, Suspense } from 'react';
 import { classnames } from 'tailwindcss-classnames';
 import { StaffTable } from '../components/parts/StaffTable';
 import { api } from '../api';
-import { Staff } from '../types';
+
+const fetcher = api.staffs.getAll();
 
 export const Top = () => {
-  const [staffs, setStaffs] = useState<Staff[]>();
+  const [resource] = useState(fetcher);
 
-  useEffect(() => {
-    const request = async () => {
-      const res = await api.staffs.getAll().catch((err: Error) => {
-        console.error(err);
-        return undefined;
-      });
-      setStaffs(res?.staffs);
-    };
-    request();
-  }, []);
-
-  return <div>
-    <h1 className={classnames('text-3xl', 'mb-6')}>
-      スタッフ一覧
-    </h1>
-    <div className={classnames('flex', 'justify-center')}>
-      <StaffTable staffs={staffs} />
+  return (
+    <div>
+      <h1 className={classnames('text-3xl', 'mb-6')}>スタッフ一覧</h1>
+      <div className={classnames('flex', 'justify-center')}>
+        <Suspense fallback={<div>loading...</div>}>
+          <StaffTable resource={resource} />
+        </Suspense>
+      </div>
     </div>
-  </div>;
+  );
 };
