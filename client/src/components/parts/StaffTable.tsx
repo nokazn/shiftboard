@@ -2,17 +2,19 @@ import { classnames } from 'tailwindcss-classnames';
 import { StaffTableTh } from './StaffTableTh';
 import { StaffTableTd } from './StaffTableTd';
 import { Button } from './Button';
+import { api } from '../../api';
 import type { Staff } from '../../types';
 import type { Suspender } from '../../api/utils';
+import { useState } from 'react';
 
 type Props = {
   resource: Suspender<Record<'staffs', Staff[] | undefined>>;
 };
 
+const deleteStaff = (id: string) => api.staffs.remove({ id });
+
 export const StaffTable = (props: Props) => {
-  const deleteStaff = (id: string) => {
-    console.log(id);
-  };
+  const [staffs] = useState(props.resource.read().staffs);
 
   return (
     <table
@@ -37,7 +39,7 @@ export const StaffTable = (props: Props) => {
         </tr>
       </thead>
       <tbody className="">
-        {props.resource.read().staffs?.map((staff) => (
+        {staffs?.map((staff) => (
           <tr key={staff.staff_id} className="hover:bg-blue-50">
             <StaffTableTd>
               {staff.staff_id}
