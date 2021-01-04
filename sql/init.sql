@@ -1,11 +1,11 @@
 CREATE DATABASE shiftboards;
 
-CREATE TABLE staffs (
+CREATE TABLE IF NOT EXISTS staffs (
   staff_id CHAR(6) NOT NULL,
   nickname TEXT NOT NULL,
   PRIMARY KEY (staff_id)
 );
-CREATE TABLE shifts (
+CREATE TABLE IF NOT EXISTS shifts (
   day DATE NOT NULL,
   staff_id CHAR(6) NOT NULL,
   start_time TIME NOT NULL,
